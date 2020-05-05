@@ -1,0 +1,15 @@
+package main
+
+var SCREEN_WIDTH i32 = 1800
+var SCREEN_HEIGHT i32 = 1000
+
+var WORLD_X_MAX i32 = 100
+var WORLD_Y_MAX i32 = 100
+
+var CELL_WIDTH f32 = 0.1
+var CELL_HEIGHT f32 = 0.1
+
+var CELL_TYPE_LADDER i32 = 8
+
+// item types
+var ITEM_TYPE_LADDER i32 = 8

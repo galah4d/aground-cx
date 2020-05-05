@@ -1,0 +1,22 @@
+run:
+	cx\
+		pkg/graphical2d/graphical.cx\
+		pkg/graphical2d/screens.cx\
+		\
+		pkg/graphical3d/graphical.cx\
+		pkg/graphical3d/planeGeometry.cx\
+		\
+		internal/constants.cx\
+		\
+		internal/util/timer.cx\
+		internal/util/animation.cx\
+		\
+		internal/model/cell.cx\
+		internal/model/world.cx\
+		internal/model/player.cx\
+		internal/model/game.cx\
+		\
+		internal/scene/scene.cx\
+		internal/scene/game-scene.cx\
+		\
+		cmd/aground.cx
