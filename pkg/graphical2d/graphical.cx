@@ -1,7 +1,7 @@
 package constants_pkg
 
-var SCREEN_WIDTH i32 = 1920
-var SCREEN_HEIGHT i32 = 1080
+var SCREEN_WIDTH i32 = 1800
+var SCREEN_HEIGHT i32 = 1000
 
 
 package position_pkg
@@ -153,6 +153,18 @@ func newButton(_id str, _x f32, _y f32, _width i32, _height i32, _path1 str, _pa
   button.dimensions = dimensions_pkg.newDimensions(_width, _height)
   button.hovered = false
   button.textures = _textures
+}
+
+func newButton2(_id str, _x f32, _y f32, _width i32, _height i32, _tex1 i32, _tex2 i32) (button Button) {
+    var _textures [2]i32
+    _textures[0] = _tex1
+    _textures[1] = _tex2
+
+    button.id = _id
+    button.position = position_pkg.newPosition(_x, _y)
+    button.dimensions = dimensions_pkg.newDimensions(_width, _height)
+    button.hovered = false
+    button.textures = _textures
 }
 
 func updateButton(mouse_x i32, mouse_y i32, button Button) (button Button) {

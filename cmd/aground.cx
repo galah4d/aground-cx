@@ -11,7 +11,12 @@ var LEFT_ARROW_KEY i32 = 263
 var DOWN_ARROW_KEY i32 = 264
 var UP_ARROW_KEY i32 = 265
 var ENTER_KEY i32 = 257
-var L_KEY i32 = 76
+
+var C_KEY i32 = 67
+var I_KEY i32 = 73
+
+var NUM_1_KEY i32 = 49
+var NUM_9_KEY i32 = 57
 
 /* Function     : initGLFW
    Desctription : Initializes the game window and input callback functions.
@@ -20,7 +25,7 @@ func initGLFW() {
 	glfw.Init()
 	glfw.WindowHint(glfw.Resizable, glfw.False)
 	glfw.WindowHint(glfw.ContextVersionMajor, 2)
-  glfw.WindowHint(glfw.ContextVersionMinor, 1)
+  	glfw.WindowHint(glfw.ContextVersionMinor, 1)
 
 	glfw.CreateWindow("window", SCREEN_WIDTH, SCREEN_HEIGHT, "Aground") // TODO add fullscreen support
 	glfw.MakeContextCurrent("window")
@@ -36,7 +41,7 @@ func initGLFW() {
 func initGL() (program i32) {
 	gl.Init()
 	gl.Enable(gl.BLEND)
-  gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
+  	gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
 	gl.Enable(gl.DEPTH_TEST)
 	gl.Enable(gl.TEXTURE_2D)
 
@@ -67,45 +72,78 @@ func keyboardCallback(window str, key i32, scancode i32, action i32, mods i32) (
     g_game.player = PlayerHit(g_game.player)
   }
 
-  if bool.and(i32.eq(key, L_KEY), i32.eq(action, 1)) {
-    g_game.player = PlayerUse(g_game.player)
+  if bool.and(i32.eq(key, C_KEY), i32.eq(action, 1)) {
+	  if current_scene == CRAFTING_SCENE {
+		  current_scene = GAME_SCENE
+	  } else {
+		  current_scene = CRAFTING_SCENE
+	  }
+  }
+
+  if bool.and(i32.eq(key, I_KEY), i32.eq(action, 1)) {
+	  if current_scene == INVENTORY_SCENE {
+		  current_scene = GAME_SCENE
+	  } else {
+		  current_scene = INVENTORY_SCENE
+	  }
+  }
+
+  if bool.and(bool.and(i32.gteq(key, NUM_1_KEY), i32.lteq(key, NUM_9_KEY)), i32.eq(action, 1)) {
+    g_hotbar = ItemCollectionEquip(g_hotbar, key - NUM_1_KEY)
   }
 }
 
-func mouse_button_callback(window str, key i32, action i32, mods i32) () {
-	// TODO
+func mouseButtonCallback(window str, key i32, action i32, mods i32) () {
+	if i32.eq(action, 1) && i32.eq(key, glfw.MouseButtonLeft) {
+		scenes[current_scene] = SceneClick(scenes[current_scene])
+	}
 }
 
 // -----------------------------------------------------------------------------
 
-var current_scene Scene
+var current_scene i32
+//var current_scene Scene
+var scenes[3] Scene
 
 func main() {
-  initGLFW()
+  	initGLFW()
 	var program i32
 	program = initGL()
 
-  // init all scenes
-  current_scene = NewGameScene(SCREEN_WIDTH, SCREEN_HEIGHT)
+	// init game
+  	g_game = NewGame()
 
-  // init game
-  g_game = NewGame()
+  	// initializes all scenes
+  	scenes[GAME_SCENE] = NewGameScene(SCREEN_WIDTH, SCREEN_HEIGHT)
+	scenes[INVENTORY_SCENE] = NewInventoryScene(SCREEN_WIDTH, SCREEN_HEIGHT)
+	scenes[CRAFTING_SCENE] = NewCraftingScene(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-  // game loop
-  for bool.not(glfw.ShouldClose("window")) {
-    gl.Clear(i32.bitor(gl.COLOR_BUFFER_BIT, gl.DEPTH_BUFFER_BIT))
+	// init all scenes
+  	//current_scene = NewGameScene(SCREEN_WIDTH, SCREEN_HEIGHT)
+	current_scene = GAME_SCENE
+
+  	// game loop
+  	for bool.not(glfw.ShouldClose("window")) {
+    	gl.Clear(i32.bitor(gl.COLOR_BUFFER_BIT, gl.DEPTH_BUFFER_BIT))
 		gl.LoadIdentity()
 
-		g_game = GameUpdate(g_game)
+		if (current_scene == GAME_SCENE) {
+			g_game = GameUpdate(g_game)
+	    	GameSceneRender(scenes[current_scene])
+	    	GameRender(g_game, program)
 
-    // render scene
-    GameSceneRender(current_scene)
+		} else if (current_scene == INVENTORY_SCENE) {
+			scenes[current_scene] = InventorySceneUpdate(scenes[current_scene])
+			InventorySceneRender(scenes[current_scene])
 
-    // render game objects
-    GameRender(g_game, program)
+		} else if (current_scene == CRAFTING_SCENE) {
+			scenes[current_scene] = CraftingSceneUpdate(scenes[current_scene])
+			CraftingSceneRender(scenes[current_scene])
+		}
 
-    // handle event callbacks
-    glfw.PollEvents()
+
+    	// handle event callbacks
+    	glfw.PollEvents()
 		glfw.SwapBuffers("window")
-  }
+  	}
 }

@@ -19,6 +19,19 @@ func NewGame() (game Game) {
   game.sky = initSky()
 
   game.player = NewPlayer()
+  initInventory()
+  InitCrafter()
+}
+
+func initInventory() {
+    g_inventory = NewItemCollection(75)
+    for i:=0; i<10; i++ {
+        g_inventory = ItemCollectionAddItem(g_inventory, NewItem(i, ITEM_CLASS_WEAPON))
+    }
+    for i:=0; i<5; i++ {
+        g_inventory = ItemCollectionAddItem(g_inventory, NewItem(9, ITEM_CLASS_WEAPON))
+    }
+    g_hotbar = NewItemCollection(9)
 }
 
 func initSky() (sky graphical.PlaneGeometry) {
@@ -60,6 +73,13 @@ func GameRender(game Game, program i32) {
 
   // render player
   PlayerRender(game.player)
+
+  // render inventory
+  gl.PushMatrix()
+  gl.Translatef(p_x, p_y+0.75, 0.0)
+  ItemCollectionRender(g_hotbar)
+  gl.PopMatrix()
+
 
   // render world
   renderWorld(game.player.x, game.player.y)

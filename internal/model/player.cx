@@ -177,6 +177,7 @@ func PlayerUse(pl Player) (pl Player) {
 
 func PlayerUpdate(pl Player, time f64) (pl Player) {
   if (pl.state == PLAYER_STATE_ATTACKING && pl.anims[pl.state].over) {
+     //ItemUse(ItemCollectionGetEquiped(g_hotbar), pl.xtarget, pl.ytarget)
     g_world[pl.ytarget][pl.xtarget] = CellHit(g_world[pl.ytarget][pl.xtarget])
     if (g_world[pl.ytarget][pl.xtarget].tp == 0) {
       pl.state = PLAYER_STATE_IDLE
