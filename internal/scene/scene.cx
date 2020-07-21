@@ -2,10 +2,6 @@ package main
 
 import "screen_pkg"
 
-// Scenes
-var HOME_SCENE i32 = 0
-var GAME_SCENE i32 = 1
-
 type Scene struct {
   id str
   rear_screen screen_pkg.Screen

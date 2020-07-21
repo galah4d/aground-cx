@@ -1,5 +1,5 @@
 run:
-	cx\
+	./cx\
 		pkg/graphical2d/graphical.cx\
 		pkg/graphical2d/screens.cx\
 		\
@@ -7,16 +7,51 @@ run:
 		pkg/graphical3d/planeGeometry.cx\
 		\
 		internal/constants.cx\
+		internal/recipes.cx\
 		\
 		internal/util/timer.cx\
 		internal/util/animation.cx\
 		\
 		internal/model/cell.cx\
 		internal/model/world.cx\
+		internal/model/item.cx\
+		internal/model/item-collection.cx\
+		internal/model/crafter.cx\
 		internal/model/player.cx\
 		internal/model/game.cx\
 		\
 		internal/scene/scene.cx\
 		internal/scene/game-scene.cx\
+		internal/scene/inventory-scene.cx\
+		internal/scene/crafting-scene.cx\
 		\
 		cmd/aground.cx
+
+tests:
+	./cx\
+		pkg/graphical2d/graphical.cx\
+		pkg/graphical2d/screens.cx\
+		\
+		pkg/graphical3d/graphical.cx\
+		pkg/graphical3d/planeGeometry.cx\
+		\
+		internal/constants.cx\
+		internal/recipes.cx\
+		\
+		internal/util/timer.cx\
+		internal/util/animation.cx\
+		\
+		internal/model/cell.cx\
+		internal/model/world.cx\
+		internal/model/item.cx\
+		internal/model/item-collection.cx\
+		internal/model/crafter.cx\
+		\
+		test/test.cx\
+		test/assert.cx\
+		\
+		test/model/cell_test.cx\
+		test/model/item_test.cx\
+		test/model/item_collection_test.cx\
+		test/model/crafter_test.cx\
+		test/model/test.cx

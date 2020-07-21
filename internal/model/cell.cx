@@ -74,7 +74,7 @@ func CellHit(cell Cell) (cell Cell) {
     if (cell.resistance > 0) {
       cell.resistance = cell.resistance - 1
       if (cell.resistance == 0) {
-        cell = NewCell(cell.x, cell.y, 0)
+        //cell = NewCell(cell.x, cell.y, 0)
       }
     }
 }
