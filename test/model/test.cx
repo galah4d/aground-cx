@@ -60,6 +60,11 @@ func main() {
     InitCrafter_Test()
   }
 
+  // player_test.cx
+  {
+    NewPlayer_Test()
+  }
+
   TearDown()
 
   test.Summary()

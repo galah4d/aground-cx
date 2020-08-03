@@ -1,5 +1,5 @@
 run:
-	./cx\
+	cx\
 		pkg/graphical2d/graphical.cx\
 		pkg/graphical2d/screens.cx\
 		\
@@ -28,7 +28,7 @@ run:
 		cmd/aground.cx
 
 tests:
-	./cx\
+	cx\
 		pkg/graphical2d/graphical.cx\
 		pkg/graphical2d/screens.cx\
 		\
@@ -46,6 +46,7 @@ tests:
 		internal/model/item.cx\
 		internal/model/item-collection.cx\
 		internal/model/crafter.cx\
+		internal/model/player.cx\
 		\
 		test/test.cx\
 		test/assert.cx\
@@ -54,4 +55,5 @@ tests:
 		test/model/item_test.cx\
 		test/model/item_collection_test.cx\
 		test/model/crafter_test.cx\
+		test/model/player_test.cx\
 		test/model/test.cx
