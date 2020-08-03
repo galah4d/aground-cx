@@ -74,6 +74,15 @@ func ItemCollectionGetEquiped(collection ItemCollection) (item Item) {
     }
 }
 
+func ItemCollectionIsEmpty(collection ItemCollection) (full bool) {
+    for i:=0; i<collection.capacity; i++ {
+        if collection.slots[i].class != ITEM_CLASS_VOID {
+            return false
+        }
+    }
+    return true
+}
+
 func ItemCollectionIsFull(collection ItemCollection) (full bool) {
     for i:=0; i<collection.capacity; i++ {
         if collection.slots[i].class == ITEM_CLASS_VOID {
@@ -100,7 +109,6 @@ func ItemCollectionRender(collection ItemCollection) {
         geometry.render()
         gl.PopMatrix()
     }
-
 
     geometry.render()
 }

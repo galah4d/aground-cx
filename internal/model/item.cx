@@ -20,9 +20,10 @@ func NewItem(id i32, class i32) (item Item) {
     if bool.not(item_textures_loaded) {
         for i:=0; i<10; i++ {
             cell_textures[i] = gl.NewTexture(
-                sprintf("assets/textures/items/item-%d.png", i))
+              sprintf("assets/textures/items/item-%d.png", i))
         }
     }
+    item_textures_loaded = true
 
     var mat graphical.Material
     mat = graphical.newMaterial(0.0, 0.0, 0.0)

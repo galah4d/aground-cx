@@ -84,8 +84,9 @@ func PlayerMove(pl Player) (pl Player) {
   var step f32
   step = CELL_WIDTH/i32.f32(walking_anim.num_frames)
 
-  pl.geometry.position.x = base_pos.x + i32.f32(pl.dir_x)*i32.f32(walking_anim.current_frame)*step
-  pl.geometry.position.y = base_pos.y + i32.f32(pl.dir_y)*i32.f32(walking_anim.current_frame)*step
+  pl.geometry.position.x = f32.add(base_pos.x, i32.f32(pl.dir_x)*i32.f32(walking_anim.current_frame)*step)
+  pl.geometry.position.y = f32.add(base_pos.y, i32.f32(pl.dir_y)*i32.f32(walking_anim.current_frame)*step)
+  // BUG crashes pl.geometry.position.y = base_pos.y + i32.f32(pl.dir_y)*i32.f32(walking_anim.current_frame)*step
 
   if (walking_anim.over) {
     pl.x = pl.x + pl.dir_x//pl.xtarget
@@ -105,7 +106,7 @@ func PlayerFall(pl Player) (pl Player) {
   var step f32
   step = CELL_WIDTH/i32.f32(falling_anim.num_frames)
 
-  pl.geometry.position.y = base_pos.y + i32.f32(falling_anim.current_frame)*step
+  pl.geometry.position.y = f32.add(base_pos.y, i32.f32(falling_anim.current_frame)*step)
 
   if (falling_anim.over) {
     pl.y = pl.y + 1

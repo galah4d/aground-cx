@@ -11,6 +11,8 @@ var CELL_HEIGHT f32 = 0.1
 
 // cell types
 var CELL_TYPE_EMPTY i32 = 0
+var CELL_TYPE_DIRT_WITH_GRASS i32 = 1
+var CELL_TYPE_DIRT i32 = 2
 var CELL_TYPE_LADDER i32 = 8
 
 // item classes
